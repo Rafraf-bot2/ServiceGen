@@ -2,7 +2,7 @@ import win32serviceutil
 import win32service
 import win32event
 import servicemanager
-import os
+import socket
 
 
 class AppServerSvc (win32serviceutil.ServiceFramework):
@@ -12,6 +12,7 @@ class AppServerSvc (win32serviceutil.ServiceFramework):
     def __init__(self,args):
         win32serviceutil.ServiceFramework.__init__(self,args)
         self.hWaitStop = win32event.CreateEvent(None,0,0,None)
+        socket.setdefaulttimeout(60)
 
     def SvcStop(self):
         self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)

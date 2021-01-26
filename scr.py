@@ -3,10 +3,11 @@ import win32service
 import win32event
 import servicemanager
 import socket
+import sys
 
 
 class AppServerSvc (win32serviceutil.ServiceFramework):
-    _svc_name_ = "ZZZZZZZZZZZ"
+    _svc_name_ = "oeoeoeoeoe"
     _svc_display_name_ = "Test Service"
 
     def __init__(self,args):
@@ -26,8 +27,14 @@ class AppServerSvc (win32serviceutil.ServiceFramework):
 
     def main(self):
        #_________________On met ici le programme_________________
-        
-
+        pass
 if __name__ == '__main__':
-    win32serviceutil.HandleCommandLine(AppServerSvc)
+    if len(sys.argv) == 1:
+        servicemanager.Initialize()
+        servicemanager.PrepareToHostSingle(AppServerSvc)
+        servicemanager.StartServiceCtrlDispatcher()
+    else:
+        win32serviceutil.HandleCommandLine(AppServerSvc)
+
+
 
